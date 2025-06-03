@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UsuarioController {
-
+	
     @GetMapping("/")
     public String mostrarInicio(Model model) {
         return "inicio"; 
