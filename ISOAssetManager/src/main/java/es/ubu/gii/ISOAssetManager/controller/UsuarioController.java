@@ -9,8 +9,12 @@ public class UsuarioController {
 
     @GetMapping("/")
     public String mostrarInicio(Model model) {
-        model.addAttribute("usuario", "Jon Ander");
         return "inicio"; 
+    }
+    
+    @GetMapping("/login")
+    public String login() {
+        return "login"; // templates/login.html
     }
 }
 
