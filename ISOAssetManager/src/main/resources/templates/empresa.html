@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Empresas - ISOAssetManager</title>
+    <link rel="stylesheet" href="/empresaestilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Empresas</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Sector</th>
+                    <th>Dirección</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empresa : ${empresas}">
+                    <td th:text="${empresa.nombre}">Nombre</td>
+                    <td th:text="${empresa.sector}">Sector</td>
+                    <td th:text="${empresa.direccion}">Dirección</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Botón abajo -->
+        <a href="/empresas/nueva" class="boton">Añadir Empresa</a>
+    </div>
+</body>
+</html>
