@@ -16,5 +16,10 @@ public class UsuarioController {
     public String login() {
         return "login"; // templates/login.html
     }
+    
+    @GetMapping("/registro")
+    public String registro() {
+        return "registro"; // templates/registro.html
+    }
 }
 
