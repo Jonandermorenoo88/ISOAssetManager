@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Activos de la Empresa</title>
+    <link rel="stylesheet" href="/empresaestilos.css">
+</head>
+<body>
+    <div class="container">
+        <h2 th:text="'Activos de ' + ${empresa.nombre}">Activos</h2>
+
+        <a th:href="@{'/activos/nuevo?empresaId=' + ${empresa.id}}" class="boton">Añadir Activo</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Valor (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="activo : ${activos}">
+                    <td th:text="${activo.nombre}">Nombre</td>
+                    <td th:text="${activo.tipo}">Tipo</td>
+                    <td th:text="${activo.descripcion}">Descripción</td>
+                    <td th:text="${activo.valor}">Valor</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/empresas" class="boton">Volver a empresas</a>
+    </div>
+</body>
+</html>
