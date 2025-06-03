@@ -20,6 +20,8 @@ public class Usuario {
     	this.password = password;
     }
     
+	public Usuario() {}
+    
 	public Long getId() {
 		return id;
 	}
@@ -31,8 +33,6 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public Usuario() {}
 
 	public String getNombre() {
 		return nombre;
