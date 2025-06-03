@@ -1,7 +1,10 @@
 package es.ubu.gii.ISOAssetManager.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,12 +18,19 @@ public class EmpresaController {
     @Autowired
     private EmpresaRepository empresaRepository;
 
-    @GetMapping("/login/empresas")
-    public String mostrarFormularioEmpresa() {
+    @GetMapping("/empresas")
+    public String mostrarEmpresas(Model model) {
+        List<Empresa> empresas = empresaRepository.findAll();
+        model.addAttribute("empresas", empresas);
         return "empresa";
     }
 
-    @PostMapping("/login/empresas/nueva")
+    @GetMapping("/empresas/nueva")
+    public String mostrarFormularioEmpresa() {
+        return "añadirempresa"; //
+    }
+
+    @PostMapping("/empresas/guardar")
     public String registrarEmpresa(@RequestParam String nombre,
                                    @RequestParam String sector,
                                    @RequestParam String direccion) {
@@ -32,7 +42,8 @@ public class EmpresaController {
 
         empresaRepository.save(empresa);
 
-        return "redirect:/empresas/nueva";
+        return "redirect:/empresas";
     }
 }
+
 
