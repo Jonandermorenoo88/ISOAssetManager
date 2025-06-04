@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Activo</title>
+    <link rel="stylesheet" href="/empresaestilos.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Añadir nuevo activo</h2>
+
+        <form method="post" th:action="@{/activos/guardar}">
+            <input type="hidden" name="empresaId" th:value="${empresaId}" />
+
+            <div class="form-group">
+                <label for="nombre">Nombre del activo</label>
+                <input type="text" id="nombre" name="nombre" required />
+            </div>
+
+            <div class="form-group">
+                <label for="tipo">Tipo</label>
+                <input type="text" id="tipo" name="tipo" required />
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <input type="text" id="descripcion" name="descripcion" />
+            </div>
+
+            <div class="form-group">
+                <label for="valor">Valor (€)</label>
+                <input type="number" step="0.01" id="valor" name="valor" required />
+            </div>
+
+            <button type="submit">Guardar activo</button>
+        </form>
+
+        <a th:href="@{/activos/empresa/{id}(id=${empresaId})}" class="boton">Volver</a>
+    </div>
+</body>
+</html>

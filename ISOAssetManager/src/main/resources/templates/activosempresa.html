@@ -9,7 +9,7 @@
     <div class="container">
         <h2 th:text="'Activos de ' + ${empresa.nombre}">Activos</h2>
 
-        <a th:href="@{'/activos/nuevo?empresaId=' + ${empresa.id}}" class="boton">Añadir Activo</a>
+		<a th:href="@{'/activos/nuevo?empresaId=' + ${empresa.id}}" class="boton">Añadir Activo</a>
 
         <table>
             <thead>
