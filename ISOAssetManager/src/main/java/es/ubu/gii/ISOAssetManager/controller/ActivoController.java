@@ -62,5 +62,45 @@ public class ActivoController {
 
         return "redirect:/activos/empresa/" + empresaId;
     }
+    
+    @GetMapping("/editar/{id}")
+    public String editarActivo(@PathVariable Long id, Model model) {
+        Activo activo = activoRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Activo no encontrado"));
+        model.addAttribute("activo", activo);
+        return "activo-editar";
+    }
+
+    @PostMapping("/eliminar/{id}")
+    public String eliminarActivo(@PathVariable Long id) {
+        Activo activo = activoRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Activo no encontrado"));
+        Long empresaId = activo.getEmpresa().getId();
+        activoRepository.deleteById(id);
+        return "redirect:/activos/empresa/" + empresaId;
+    }
+    
+    @PostMapping("/actualizar")
+    public String actualizarActivo(@RequestParam Long id,
+                                   @RequestParam Long empresaId,
+                                   @RequestParam String nombre,
+                                   @RequestParam String tipo,
+                                   @RequestParam String descripcion,
+                                   @RequestParam double valor) {
+
+        Activo activo = activoRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Activo no encontrado"));
+
+        activo.setNombre(nombre);
+        activo.setTipo(tipo);
+        activo.setDescripcion(descripcion);
+        activo.setValor(valor);
+
+        activoRepository.save(activo);
+
+        return "redirect:/activos/empresa/" + empresaId;
+    }
+
+
 }
 

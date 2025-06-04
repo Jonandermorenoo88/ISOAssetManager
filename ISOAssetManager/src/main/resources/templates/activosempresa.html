@@ -26,6 +26,14 @@
                     <td th:text="${activo.tipo}">Tipo</td>
                     <td th:text="${activo.descripcion}">Descripción</td>
                     <td th:text="${activo.valor}">Valor</td>
+					<td>
+					        
+					        <a th:href="@{/activos/editar/{id}(id=${activo.id})}" class="btn btn-warning">Modificar</a>
+
+					        <form th:action="@{/activos/eliminar/{id}(id=${activo.id})}" method="post" style="display:inline;">
+					            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Eliminar este activo?');">Eliminar</button>
+					        </form>
+					    </td>
                 </tr>
             </tbody>
         </table>

@@ -26,7 +26,7 @@
                     <td th:text="${empresa.sector}"></td>
                     <td th:text="${empresa.direccion}"></td>
                     <td>
-                        <a th:href="@{/activos/{id}(id=${empresa.id})}">Ver activos</a>
+						<a th:href="@{/activos/empresa/{id}(id=${empresa.id})}">Ver activos</a>
                         <form th:action="@{/empresas/eliminar/{id}(id=${empresa.id})}" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-danger" onclick="return confirm('¿Eliminar esta empresa?');">Eliminar</button>
                         </form>

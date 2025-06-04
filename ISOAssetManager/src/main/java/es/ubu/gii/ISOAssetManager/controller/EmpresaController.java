@@ -40,7 +40,7 @@ public class EmpresaController {
     public String eliminarEmpresa(@PathVariable Long id) {
         empresaRepository.deleteById(id);
         return "redirect:/empresas";
-    }
+    }   
 
 
     @PostMapping("/empresas/guardar")
