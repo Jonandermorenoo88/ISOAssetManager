@@ -1,6 +1,7 @@
 package es.ubu.gii.ISOAssetManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,9 @@ public class RegistroController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/registro")
     public String registrarUsuario(@RequestParam String nombre,
@@ -29,11 +33,12 @@ public class RegistroController {
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setEmail(email);
-        usuario.setPassword(password);
+        usuario.setPassword(passwordEncoder.encode(password)); 
 
         usuarioRepository.save(usuario);
 
         return "redirect:/login";
     }
 }
+
 
