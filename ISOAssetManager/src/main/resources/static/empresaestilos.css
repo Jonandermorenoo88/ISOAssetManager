@@ -53,6 +53,7 @@ a:hover {
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
+    display: inline-block;
 }
 
 .btn-primary {
@@ -68,6 +69,5 @@ a:hover {
 .btn-logout {
     background-color: #dc3545;
     color: white;
-    float: left;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }

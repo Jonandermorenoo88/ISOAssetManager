@@ -31,6 +31,11 @@ public class EmpresaController {
         return "añadirempresa"; //
     }
     
+    @GetMapping("/")
+    public String cerrarSesion() {
+        return "inicio";
+    }
+    
     @PostMapping("/empresas/eliminar/{id}")
     public String eliminarEmpresa(@PathVariable Long id) {
         empresaRepository.deleteById(id);
