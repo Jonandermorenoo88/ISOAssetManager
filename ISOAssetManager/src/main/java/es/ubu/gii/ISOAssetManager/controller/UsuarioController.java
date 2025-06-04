@@ -12,11 +12,6 @@ public class UsuarioController {
         return "inicio"; 
     }
     
-    @GetMapping("/login")
-    public String login() {
-        return "login"; // templates/login.html
-    }
-    
     @GetMapping("/registro")
     public String registro() {
         return "registro"; // templates/registro.html

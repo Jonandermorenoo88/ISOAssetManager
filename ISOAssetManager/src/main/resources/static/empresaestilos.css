@@ -50,3 +50,18 @@ th {
     background-color: #007bff;
     color: white;
 }
+
+.boton-rojo {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 16px;
+    margin: 10px 0;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.boton-rojo:hover {
+    background-color: #a71d2a;
+}
