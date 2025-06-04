@@ -1,17 +1,16 @@
 body {
-    font-family: Arial, sans-serif;
     background-color: #f1f1f1;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
+    width: 80%;
+    margin: 30px auto;
+    background-color: white;
+    border-radius: 10px;
     padding: 20px;
-    margin-top: 30px;
-    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -20,48 +19,55 @@ h1 {
     margin-bottom: 20px;
 }
 
-.boton {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    margin: 10px 0;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align: center;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+thead {
+    background-color: #007bff;
+    color: white;
 }
 
 th, td {
     padding: 12px;
     text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-th {
+a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-primary {
     background-color: #007bff;
     color: white;
 }
 
-.boton-rojo {
-    display: inline-block;
+.btn-danger {
     background-color: #dc3545;
     color: white;
-    padding: 10px 16px;
-    margin: 10px 0;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
 }
 
-.boton-rojo:hover {
-    background-color: #a71d2a;
+.btn-logout {
+    background-color: #dc3545;
+    color: white;
+    float: left;
+    margin-bottom: 10px;
 }
