@@ -32,6 +32,17 @@ public class IsoAssetManagerApplication {
 	        }
 	    };
 	}
+	
+	@Bean
+	CommandLineRunner initRoles(RolRepository rolRepo) {
+	    return args -> {
+	        if (rolRepo.findByNombre("AUDITOR").isEmpty()) {
+	            rolRepo.save(new Rol("AUDITOR"));
+	            System.out.println(">>> Rol AUDITOR creado.");
+	        }
+	    };
+	}
+
 
 }
 

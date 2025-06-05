@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" href="/usuariosestilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Usuarios</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Asignar Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.nombre}">Nombre</td>
+                    <td th:text="${usuario.email}">Email</td>
+                    <td>
+                        <span th:each="rol : ${usuario.roles}" th:text="${rol.nombre} + ' '">Rol</span>
+                    </td>
+                    <td>
+						<form method="post" th:action="@{/usuarios/asignar-rol}">
+						    <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
+						    <select name="rolNombre">
+						        <option value="ADMIN">ADMIN</option>
+						        <option value="AUDITOR">AUDITOR</option>
+						    </select>
+						    <button type="submit">Asignar Rol</button>
+                    </td>
+                    <td>
+                        <form method="post" th:action="@{/usuarios/eliminar/{id}(id=${usuario.id})}" 
+                              onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/dashboard" class="boton-volver">Volver</a>
+    </div>
+</body>
+</html>
