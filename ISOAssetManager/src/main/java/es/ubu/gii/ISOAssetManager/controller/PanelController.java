@@ -16,12 +16,12 @@ public class PanelController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/panel")
     public String panel(Model model, @RequestParam String email) {
         Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow();
         boolean esAdmin = usuario.getRoles().stream().anyMatch(r -> r.getNombre().equals("ADMIN"));
         model.addAttribute("usuario", usuario);
         model.addAttribute("esAdmin", esAdmin);
-        return "dashboard";
+        return "panel";
     }
 }
