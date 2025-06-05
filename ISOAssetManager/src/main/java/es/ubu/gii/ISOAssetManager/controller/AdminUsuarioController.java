@@ -52,10 +52,24 @@ public class AdminUsuarioController {
     }
 
     // Eliminar usuario
-    @PostMapping("/eliminar/{id}")
-    public String eliminarUsuario(@PathVariable Long id) {
+    @PostMapping("/eliminar")
+    public String eliminarUsuario(@RequestParam Long id) {
         usuarioRepository.deleteById(id);
         return "redirect:/usuarios";
     }
-}
 
+    // Eliminar un rol del usuario
+    @PostMapping("/eliminar-rol")
+    public String eliminarRol(@RequestParam Long usuarioId, @RequestParam String rolNombre) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        Rol rol = rolRepository.findByNombre(rolNombre)
+            .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+
+        usuario.getRoles().remove(rol);
+        usuarioRepository.save(usuario);
+
+        return "redirect:/usuarios";
+    }
+}

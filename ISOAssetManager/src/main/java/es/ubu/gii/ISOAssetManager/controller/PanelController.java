@@ -24,4 +24,6 @@ public class PanelController {
         model.addAttribute("esAdmin", esAdmin);
         return "panel";
     }
+    
+    
 }
