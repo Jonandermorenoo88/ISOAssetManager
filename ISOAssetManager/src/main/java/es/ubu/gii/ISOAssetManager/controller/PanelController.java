@@ -1,0 +1,27 @@
+package es.ubu.gii.ISOAssetManager.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+
+import es.ubu.gii.ISOAssetManager.model.Usuario;
+import es.ubu.gii.ISOAssetManager.repository.UsuarioRepository;
+
+
+@Controller
+public class PanelController {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @GetMapping("/dashboard")
+    public String panel(Model model, @RequestParam String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow();
+        boolean esAdmin = usuario.getRoles().stream().anyMatch(r -> r.getNombre().equals("ADMIN"));
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("esAdmin", esAdmin);
+        return "dashboard";
+    }
+}
