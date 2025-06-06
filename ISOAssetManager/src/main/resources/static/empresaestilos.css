@@ -61,9 +61,11 @@ a:hover {
     color: white;
 }
 
-.btn-danger {
+.btn-logout {
     background-color: #dc3545;
     color: white;
+    margin-bottom: 20px;
+    display: inline-block;
 }
 
 .btn-logout {

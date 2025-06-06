@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Activos de la Empresa</title>
-    <link rel="stylesheet" href="/empresaestilos.css">
+    <link rel="stylesheet" href="/activosestilos.css"> <!-- Usa un único CSS global -->
 </head>
 <body>
     <div class="container">
         <h2 th:text="'Activos de ' + ${empresa.nombre}">Activos</h2>
 
-		<a th:href="@{'/activos/nuevo?empresaId=' + ${empresa.id}}" class="boton">Añadir Activo</a>
+        <a th:href="@{'/activos/nuevo?empresaId=' + ${empresa.id}}" class="btn btn-primary">Añadir Activo</a>
 
         <table>
             <thead>
@@ -18,6 +18,7 @@
                     <th>Tipo</th>
                     <th>Descripción</th>
                     <th>Valor (€)</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,19 +27,18 @@
                     <td th:text="${activo.tipo}">Tipo</td>
                     <td th:text="${activo.descripcion}">Descripción</td>
                     <td th:text="${activo.valor}">Valor</td>
-					<td>
-					        
-					        <a th:href="@{/activos/editar/{id}(id=${activo.id})}" class="btn btn-warning">Modificar</a>
+                    <td>
+                        <a th:href="@{/activos/editar/{id}(id=${activo.id})}" class="btn btn-warning">Modificar</a>
 
-					        <form th:action="@{/activos/eliminar/{id}(id=${activo.id})}" method="post" style="display:inline;">
-					            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Eliminar este activo?');">Eliminar</button>
-					        </form>
-					    </td>
+                        <form th:action="@{/activos/eliminar/{id}(id=${activo.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Eliminar este activo?');">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
-        <a href="/empresas" class="boton">Volver a empresas</a>
+        <a href="/empresas" class="btn btn-secondary">Volver a empresas</a>
     </div>
 </body>
 </html>
