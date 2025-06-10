@@ -10,29 +10,41 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/registro", "/login", "/css/**", "/js/**").permitAll()
-                .requestMatchers("/usuarios/**", "/panel").hasRole("ADMIN")
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/panel", true)
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-            );
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	    .authorizeHttpRequests(auth -> auth
+	    	    .requestMatchers(
+	    	    	"/loginestilos.css",
+	    	        "/webjars/**",
+	    	        "/login",
+	    	        "/registro",
+	    	        "/",
+	    	        "/inicioestilos.css",
+	    	        "/panel",
+	    	        "/registroestilos.css"
+	    	        
+	    	    ).permitAll()
+	    	    .requestMatchers("/usuarios/**", "/panel").hasRole("ADMIN")
+	    	    .anyRequest().authenticated()
+	    	)
+	        .formLogin(form -> form
+	            .loginPage("/login")
+	            .defaultSuccessUrl("/panel", true)
+	            .permitAll()
+	        )
+	        .logout(logout -> logout
+	            .logoutSuccessUrl("/login?logout")
+	            .permitAll()
+	        );
 
-        return http.build();
-    }
+	    return http.build();
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }
