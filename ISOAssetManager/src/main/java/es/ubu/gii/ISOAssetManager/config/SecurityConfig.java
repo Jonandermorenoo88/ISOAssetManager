@@ -10,40 +10,38 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-	    http
-	    .authorizeHttpRequests(auth -> auth
-	    	    .requestMatchers(
-	    	    	"/loginestilos.css",
-	    	        "/webjars/**",
-	    	        "/login",
-	    	        "/registro",
-	    	        "/",
-	    	        "/inicioestilos.css",
-	    	        "/panel",
-	    	        "/registroestilos.css"
-	    	    ).permitAll()
-	    	    .requestMatchers("/panel").hasRole("ADMIN")
-	    	    .anyRequest().authenticated()
-	    	)
-	        .formLogin(form -> form
-	            .loginPage("/login")
-	            .defaultSuccessUrl("/panel", true)
-	            .permitAll()
-	        )
-	        .logout(logout -> logout
-	            .logoutSuccessUrl("/login?logout")
-	            .permitAll()
-	        );
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    "/", 
+                    "/inicio", 
+                    "/login", 
+                    "/registro",
+                    "/inicioestilos.css", 
+                    "/loginestilos.css", 
+                    "/registroestilos.css"
+                ).permitAll()
+                .requestMatchers("/panel", "/usuarios/**").hasRole("ADMIN")
+                .requestMatchers("/empresas/**", "/activos/**").hasAnyRole("ADMIN", "AUDITOR")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/panel", true)
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            );
 
-	    return http.build();
-	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
-	}
+        return http.build();
+    }
 
-
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

@@ -17,13 +17,24 @@ public class PanelController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping("/panel")
-    public String panel(Model model, @RequestParam String email) {
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow();
-        boolean esAdmin = usuario.getRoles().stream().anyMatch(r -> r.getNombre().equals("ADMIN"));
+    public String panel(Model model, org.springframework.security.core.Authentication authentication) {
+        String email = authentication.getName();  // Spring Security ya lo sabe
+        Usuario usuario = usuarioRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        boolean esAdmin = usuario.getRoles().stream()
+            .anyMatch(r -> r.getNombre().equals("ADMIN"));
+
+        if (!esAdmin) {
+            return "redirect:/empresas";
+        }
+
         model.addAttribute("usuario", usuario);
-        model.addAttribute("esAdmin", esAdmin);
+        model.addAttribute("esAdmin", true);
         return "panel";
     }
+
+
     
     
 }
