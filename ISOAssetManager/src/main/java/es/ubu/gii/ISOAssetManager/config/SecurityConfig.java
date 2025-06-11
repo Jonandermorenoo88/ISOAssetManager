@@ -1,5 +1,6 @@
 package es.ubu.gii.ISOAssetManager.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,35 +11,31 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/", 
-                    "/inicio", 
-                    "/login", 
-                    "/registro",
-                    "/inicioestilos.css", 
-                    "/loginestilos.css", 
-                    "/registroestilos.css"
-                ).permitAll()
-                .requestMatchers("/panel", "/usuarios/**").hasRole("ADMIN")
-                .requestMatchers("/empresas/**", "/activos/**").hasAnyRole("ADMIN", "AUDITOR")
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/panel", true)
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-            );
+	@Autowired
+	private CustomLoginSuccessHandler loginSuccessHandler;
 
-        return http.build();
-    }
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/", "/inicio", "/login", "/registro", "/**.css").permitAll()
+	            .requestMatchers("/panel", "/usuarios/**").hasRole("ADMIN")
+	            .requestMatchers("/empresas/**", "/activos/**").hasAnyRole("ADMIN", "AUDITOR")
+	            .anyRequest().authenticated()
+	        )
+	        .formLogin(form -> form
+	            .loginPage("/login")
+	            .successHandler(loginSuccessHandler)
+	            .permitAll()
+	        )
+	        .logout(logout -> logout
+	            .logoutSuccessUrl("/login?logout")
+	            .permitAll()
+	        );
+
+	    return http.build();
+	}
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
