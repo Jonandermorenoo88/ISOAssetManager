@@ -30,6 +30,8 @@ public class RegistroController {
             model.addAttribute("error", "Ya existe un usuario con ese correo");
             return "registro";
         }
+        
+        System.out.println("Registrando usuario: " + email);
 
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);

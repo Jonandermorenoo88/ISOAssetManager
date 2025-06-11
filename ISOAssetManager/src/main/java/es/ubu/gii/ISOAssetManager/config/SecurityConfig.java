@@ -23,9 +23,8 @@ public class SecurityConfig {
 	    	        "/inicioestilos.css",
 	    	        "/panel",
 	    	        "/registroestilos.css"
-	    	        
 	    	    ).permitAll()
-	    	    .requestMatchers("/usuarios/**", "/panel").hasRole("ADMIN")
+	    	    .requestMatchers("/panel").hasRole("ADMIN")
 	    	    .anyRequest().authenticated()
 	    	)
 	        .formLogin(form -> form

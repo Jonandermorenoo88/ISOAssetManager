@@ -3,6 +3,7 @@ package es.ubu.gii.ISOAssetManager.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ public class LoginController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/login")
     public String mostrarLogin() {
         return "login";
@@ -30,7 +34,7 @@ public class LoginController {
 
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(username);
 
-        if (usuarioOpt.isPresent() && usuarioOpt.get().getPassword().equals(password)) {
+        if (usuarioOpt.isPresent() && passwordEncoder.matches(password, usuarioOpt.get().getPassword())) {
             Usuario usuario = usuarioOpt.get();
             boolean esAdmin = usuario.getRoles().stream()
                 .anyMatch(r -> r.getNombre().equals("ADMIN"));
@@ -47,6 +51,6 @@ public class LoginController {
         model.addAttribute("error", "Email o contraseña incorrectos");
         return "login";
     }
-
 }
+
 

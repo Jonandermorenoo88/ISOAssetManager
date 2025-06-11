@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import es.ubu.gii.ISOAssetManager.model.Rol;
 import es.ubu.gii.ISOAssetManager.model.Usuario;
@@ -20,15 +21,20 @@ public class IsoAssetManagerApplication {
 	}
 
 	@Bean
-	CommandLineRunner initData(UsuarioRepository usuarioRepo, RolRepository rolRepo) {
+	CommandLineRunner initData(UsuarioRepository usuarioRepo, RolRepository rolRepo, PasswordEncoder passwordEncoder) {
 	    return args -> {
 	        Rol rolAdmin = rolRepo.findByNombre("ADMIN")
 	            .orElseGet(() -> rolRepo.save(new Rol("ADMIN")));
 
 	        if (usuarioRepo.findByEmail("admin@empresa.com").isEmpty()) {
-	            Usuario admin = new Usuario("Admin", "admin@empresa.com", "adminpass");
-	            admin.setRoles(Set.of(rolAdmin)); // <-- Esto es lo que guarda la relación
+	            Usuario admin = new Usuario(
+	                "Admin",
+	                "admin@empresa.com",
+	                passwordEncoder.encode("adminpass")
+	            );
+	            admin.setRoles(Set.of(rolAdmin));
 	            usuarioRepo.save(admin);
+	            System.out.println(">>> ADMIN creado con contraseña encriptada.");
 	        }
 	    };
 	}
