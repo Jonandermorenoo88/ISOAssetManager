@@ -12,7 +12,7 @@ import es.ubu.gii.ISOAssetManager.model.Rol;
 import es.ubu.gii.ISOAssetManager.model.Usuario;
 import es.ubu.gii.ISOAssetManager.repository.RolRepository;
 import es.ubu.gii.ISOAssetManager.repository.UsuarioRepository;
-//comentario
+
 @SpringBootApplication
 public class IsoAssetManagerApplication {
 
