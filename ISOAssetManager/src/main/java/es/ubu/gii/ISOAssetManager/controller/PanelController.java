@@ -3,7 +3,6 @@ package es.ubu.gii.ISOAssetManager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
 import es.ubu.gii.ISOAssetManager.model.Usuario;
@@ -18,10 +17,10 @@ public class PanelController {
 
     @GetMapping("/panel")
     public String panel(Model model, org.springframework.security.core.Authentication authentication) {
-        String email = authentication.getName();  // Spring Security ya lo sabe
+        String email = authentication.getName();
         Usuario usuario = usuarioRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
+        
         boolean esAdmin = usuario.getRoles().stream()
             .anyMatch(r -> r.getNombre().equals("ADMIN"));
 
@@ -33,8 +32,5 @@ public class PanelController {
         model.addAttribute("esAdmin", true);
         return "panel";
     }
-
-
-    
     
 }
